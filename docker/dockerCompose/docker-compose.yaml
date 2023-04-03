@@ -1,0 +1,26 @@
+version: "3.3"
+
+services:
+
+  mysql:
+    image: julimax/crud-mysql:v0.1
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      restart: always
+
+
+  app:
+    depends_on:  
+      - mysql    
+    image: julimax/crud-node:v0.5
+    ports:
+      - 3000:3000
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      MYSQL_DB: crudnodejs
+    restart: always
+

@@ -1,0 +1,29 @@
+pipeline {
+    agent { node { label 'machine1' } } 
+
+    stages {
+        stage('Build') {
+            steps {
+                sh 'sudo rm -r /vagrant/doc/testing/*'
+                sh 'sudo mv /home/jenkins/workspace/crud1600/crud/* /vagrant/doc/testing'
+                sh 'pwd'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'cd /vagrant/doc/testing; sudo npm link morgan'
+                sh 'cd /vagrant/doc/testing/TEST; npm test'
+                sh 'sudo cp -rf /vagrant/doc/testing/* /vagrant/doc/app'
+            }
+
+           }
+        stage('deploy') {
+            steps {
+                sh 'ssh server@192.168.56.11 sh /vagrant/app/run2.sh>/dev/null &'
+                sh 'sleep 10'
+            }
+            
+            
+        }
+    }
+}

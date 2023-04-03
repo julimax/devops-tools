@@ -1,0 +1,4 @@
+curl -sL https://deb.nodesource.co}m/setup_14.x | sudo -E bash -
+apt-get install -y nodejs
+sudo npm link morgan
+sudo npm run dev
