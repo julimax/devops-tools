@@ -48,7 +48,7 @@
     
 ## build a new image
 
-    docker build -t imageName
+    docker build -t imageName "directory"
     
 ## rename image and add version
 
